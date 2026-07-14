@@ -1,0 +1,134 @@
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    width: 100%;
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+@media (min-width: 1200px) {
+    .mission-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .mission-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+    .mission-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.mission-card {
+    background: linear-gradient(180deg, #17163d 0%, #1b1f52 100%);
+    border: 2px solid;
+    border-radius: 28px;
+    padding: 28px;
+    min-height: 240px;
+    cursor: pointer;
+    transition: all .35s ease;
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-shadow: 0 0 18px rgba(0, 0, 0, .35);
+}
+
+.mission-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 0 30px rgba(255, 255, 255, .15);
+}
+
+.mission-card::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    right: -70px;
+    top: -70px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .05);
+}
+
+.mission-card.locked {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.mission-icon {
+    font-size: 64px;
+    margin-bottom: 15px;
+}
+
+.mission-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+}
+
+.mission-subtitle {
+    color: #b8bfd7;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+.mission-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+}
+
+.play-btn {
+    border: none;
+    background: #27d867;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.play-btn:hover {
+    transform: scale(1.08);
+}
+
+.lock {
+    color: #ffcc66;
+    font-weight: 700;
+}
+
+.stars {
+    color: #ffd54f;
+    font-weight: 700;
+}
+
+@media(max-width:768px) {
+
+    .mission-grid {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .mission-title {
+        font-size: 26px;
+    }
+
+    .mission-icon {
+        font-size: 54px;
+    }
+
+}

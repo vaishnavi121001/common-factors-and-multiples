@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StoryPhase.css';
 import { storyPanels } from '../../data/storyContent';
+import { narrate } from '../../utils/audio';
+import { getStoryNarrationPanel } from '../../utils/narration';
 
-export default function StoryPhase({ onNext, audioEnabled }) {
+export default function StoryPhase({ onNext, onBack, audioEnabled }) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const panel = storyPanels[currentIdx];
+
+  useEffect(() => {
+    if (audioEnabled) {
+      narrate(getStoryNarrationPanel(currentIdx));
+    }
+  }, [currentIdx, audioEnabled]);
 
   const handleNext = () => {
     if (currentIdx < storyPanels.length - 1) setCurrentIdx(currentIdx + 1);
@@ -13,6 +21,7 @@ export default function StoryPhase({ onNext, audioEnabled }) {
 
   const handlePrev = () => {
     if (currentIdx > 0) setCurrentIdx(currentIdx - 1);
+    else onBack();
   };
 
   return (
@@ -37,10 +46,6 @@ export default function StoryPhase({ onNext, audioEnabled }) {
         </div>
 
         <div className="story-content-side" style={{ position: 'relative' }}>
-          {/* Audio Icon placed at the top right of the content side */}
-          <div className="audio-icon" style={{ position: 'absolute', top: '24px', right: '24px', fontSize: '1.5rem', opacity: audioEnabled ? 1 : 0.4 }}>
-             🔊
-          </div>
           
           <h2 className="story-title">{panel.title || "The School Fair"}</h2>
           <p className="story-body">{panel.text}</p>

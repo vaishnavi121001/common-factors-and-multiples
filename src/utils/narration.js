@@ -1,58 +1,143 @@
-import { say, ask, think, emphasize, instruct, cheer, celebrate } from './audio';
+import {
+  say,
+  ask,
+  think,
+  emphasize,
+  instruct,
+  celebrate
+} from "./audio";
+
+export function landingNarration() {
+  return [
+    celebrate("Welcome to Intellia Journey !"),
+    say("Today we're going to explore Common Factors and Common Multiples."),
+    emphasize("Let's begin our exciting math adventure!")
+  ];
+}
+
+/* ---------------- WONDER ---------------- */
 
 export function wonderNarration() {
   return [
-    think("John's class has twelve students. Sarah's class has eighteen students."),
-    ask("Both teachers want equal teams of the same size. What sizes work for both?"),
-    cheer("Let us find out what common factors really means!")
+    think(
+      "Hmm... I wonder how we can arrange these into equal groups."
+    ),
+
+    ask(
+      "Emma has 12 balloons and Liam has 18 balloons. What group sizes can both of them use without any balloons left over?"
+    ),
+
+    emphasize(
+      "Let's discover Common Factors and Common Multiples together!"
+    )
   ];
 }
 
-export function getStoryNarrationPanel(panelIndex) {
-  const panels = [
-    [say("John and Sarah are planning a school fun fair.")],
-    [say("John has twelve candles for a craft table. He wants equal rows.")],
-    [emphasize("The factors of twelve are one, two, three, four, six, and twelve.")],
-    [say("Sarah has eighteen stickers for another table. Same idea, equal rows.")],
-    [emphasize("The factors of eighteen are one, two, three, six, nine, and eighteen.")],
-    [emphasize("Look! One, two, three, and six appear in both lists. Those are common factors!")]
+/* ---------------- STORY ---------------- */
+
+export function getStoryNarrationPanel(index) {
+  const narration = [
+
+    // Panel 1
+    [
+      say(
+        "John and Sarah are excited to organize their school fair. As they plan decorations, games, and balloons, they discover that arranging things into equal groups makes planning much easier. "
+      ),
+
+      say(
+        "Let's join them and learn about Common Factors and Common Multiples!"
+      )
+    ],
+
+    // Panel 2
+    [
+      say(
+        "John has twelve balloons."
+      ),
+
+      emphasize(
+        "He can arrange them into two groups, three groups, four groups or six groups without any balloons left."
+      ),
+
+      say(
+        "These group sizes are called factors because they divide twelve exactly."
+      )
+    ],
+
+    // Panel 3
+    [
+      say(
+        "Sarah has eighteen balloons."
+      ),
+
+      emphasize(
+        "She can arrange them into two rows, three rows, six rows or nine rows."
+      ),
+
+      say(
+        "These are the factors of eighteen."
+      )
+    ],
+
+    // Panel 4
+    [
+      emphasize(
+        "Now let's compare both factor lists."
+      ),
+
+      celebrate(
+        "One, Two, Three and Six appear in both lists."
+      ),
+
+      say(
+        "These shared numbers are called Common Factors because they divide both numbers exactly."
+      )
+    ],
+
+    // Panel 5
+    [
+      say(
+        "Now let's explore Common Multiples."
+      ),
+
+      say(
+        "John jumps every four minutes while Sarah jumps every six minutes."
+      ),
+
+      emphasize(
+        "They meet together after twelve minutes and again after twenty four minutes."
+      ),
+
+      say(
+        "Those meeting times are called Common Multiples."
+      )
+    ],
+
+    // Panel 6
+    [
+      celebrate(
+        "Amazing work!"
+      ),
+
+      say(
+        "You helped John and Sarah organize their school fair successfully."
+      ),
+
+      emphasize(
+        "Now you're ready to solve Common Factors and Common Multiples like a true math champion."
+      )
+    ]
   ];
-  return panels[panelIndex] || [];
+
+  return narration[index] || [];
 }
 
-export function simulateStationANarration() {
-  return [
-    instruct("Try grouping the blocks into equal rows. Does that row size work for both yards?")
-  ];
-}
+/* ---------------- SIMULATION ---------------- */
 
-export function simulateStationBNarration() {
-  return [
-    instruct("Drag each number into the correct circle. Where does it belong?")
-  ];
-}
-
-export function simulateStationCNarration() {
-  return [
-    instruct("Step through the number lines. Tap the first point where both lights turn on together!")
-  ];
-}
-
-export function reflectNarration() {
-  return [
-    think("What a journey today! Can you find the common factors of eight and twenty?")
-  ];
-}
-
-export function completionNarration() {
-  return [
-    celebrate("Lesson complete! You are a Common Ground Champion!")
-  ];
-}
 export function stationAIntroNarration() {
   return [
     instruct(
-      "Welcome to Array Yard! Choose a row size and check whether both numbers can be arranged into equal rows. If both divide evenly, you have found a common factor."
+      "Welcome to Array Yard. Choose a row size. If both numbers can be divided equally, you have discovered a Common Factor."
     )
   ];
 }
@@ -60,7 +145,7 @@ export function stationAIntroNarration() {
 export function commonFactorFoundNarration(factor) {
   return [
     celebrate(
-      `Amazing! ${factor} is a common factor because both numbers can be divided equally into groups of ${factor}.`
+      `Excellent! ${factor} is a Common Factor because it divides both numbers perfectly.`
     )
   ];
 }
@@ -68,33 +153,39 @@ export function commonFactorFoundNarration(factor) {
 export function notCommonFactorNarration() {
   return [
     say(
-      "That row size does not work for both numbers. Try another row size."
+      "Good try. That row size does not divide both numbers equally. Try another one."
     )
   ];
 }
+
 export function stationBIntroNarration() {
   return [
     instruct(
-      "Welcome to the Venn Sort Station! Drag each number into the correct part of the Venn diagram. Numbers that are factors of both go in the middle."
+      "Welcome to Venn Sort Station. Drag each number into the correct section of the Venn diagram."
     )
   ];
 }
 
 export function stationBCorrectNarration() {
   return [
-    celebrate("Excellent! That number is in the correct place.")
+    celebrate(
+      "Perfect! You placed it correctly."
+    )
   ];
 }
 
 export function stationBWrongNarration() {
   return [
-    say("Not quite. Try placing the number in another section.")
+    say(
+      "Oops! That number belongs somewhere else. Try again."
+    )
   ];
 }
+
 export function stationCIntroNarration() {
   return [
     instruct(
-      "Welcome to Meeting Point Station! Move along the number lines and find the first place where both friends meet. That is a common multiple."
+      "Welcome to Meeting Point Station. Move along the number lines and find where both patterns meet together."
     )
   ];
 }
@@ -102,7 +193,7 @@ export function stationCIntroNarration() {
 export function commonMultipleFoundNarration(number) {
   return [
     celebrate(
-      `Great job! ${number} is a common multiple because both number patterns meet here.`
+      `Great job! ${number} is a Common Multiple because both patterns meet here together.`
     )
   ];
 }
@@ -110,7 +201,45 @@ export function commonMultipleFoundNarration(number) {
 export function notCommonMultipleNarration() {
   return [
     say(
-      "Not yet. Keep moving until both number patterns meet at the same point."
+      "Keep searching. They have not met yet."
+    )
+  ];
+}
+
+/* ---------------- PLAY ---------------- */
+
+export function playIntroNarration() {
+  return [
+    instruct(
+      "Welcome to IntelliPlay. Complete all play challenges by answering every challenge correctly."
+    )
+  ];
+}
+
+/* ---------------- REFLECT ---------------- */
+
+export function reflectNarration() {
+  return [
+    think(
+      "Fantastic work today! You learned how to find Common Factors and Common Multiples."
+    ),
+
+    ask(
+      "Can you think of another pair of numbers that share common factors?"
+    )
+  ];
+}
+
+/* ---------------- COMPLETE ---------------- */
+
+export function completionNarration() {
+  return [
+    celebrate(
+      "Congratulations! You completed the entire Common Factors and Common Multiples adventure."
+    ),
+
+    celebrate(
+      "You are now officially an IntelliPlay Math Champion!"
     )
   ];
 }

@@ -4,11 +4,7 @@ import { narrate } from '../../utils/audio';
 import { say } from '../../utils/audio';
 
 export default function IntroPhase({ onStart, audioEnabled }) {
-  useEffect(() => {
-    if (audioEnabled) {
-      narrate([say("Welcome! Let's explore common factors and common multiples.")]);
-    }
-  }, [audioEnabled]);
+  // audio now handled in App.jsx via landingNarration
 
   return (
     <div className="intro-container">

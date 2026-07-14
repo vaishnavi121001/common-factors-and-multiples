@@ -4,7 +4,7 @@ import ArrayYardStation from '../simulations/ArrayYardStation';
 import VennSortStation from '../simulations/VennSortStation';
 import MeetingPointStation from '../simulations/MeetingPointStation';
 
-export default function SimulatePhase({ onNext, audioEnabled }) {
+export default function SimulatePhase({ onNext, onBack, audioEnabled }) {
   const [station, setStation] = useState(0);
 
   const stations = [
@@ -22,11 +22,18 @@ export default function SimulatePhase({ onNext, audioEnabled }) {
     }
   ];
 
+  const handleBack = () => {
+    if (station > 0) setStation(station - 1);
+    else onBack();
+  };
+
   return (
     <div className="phase-wrapper">
-
-
-
+      <div style={{ padding: '20px' }}>
+        <button onClick={handleBack} style={{ padding: '10px 20px', borderRadius: '8px', border: 'none', background: 'rgba(255,255,255,0.1)', color: 'white', cursor: 'pointer', fontSize: '16px' }}>
+          ← Back
+        </button>
+      </div>
 
       {/* Station */}
 

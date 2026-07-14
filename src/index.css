@@ -1912,40 +1912,8 @@ body {
     font-size: 1.1rem;
   }
 
-  @keyframes floatCrystal {
 
-    0% {
-      transform: translateY(0px);
-    }
 
-    50% {
-      transform: translateY(-12px);
-    }
-
-    100% {
-      transform: translateY(0px);
-    }
-
-  }
-
-  @keyframes pulseBeam {
-
-    0% {
-      opacity: .5;
-      transform: scaleX(.9);
-    }
-
-    50% {
-      opacity: 1;
-      transform: scaleX(1);
-    }
-
-    100% {
-      opacity: .5;
-      transform: scaleX(.9);
-    }
-
-  }
 
   .mcq-option {
 

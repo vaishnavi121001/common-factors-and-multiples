@@ -4,6 +4,7 @@ import { reflectNarration } from "../../utils/narration";
 
 export default function ReflectPhase({
   onComplete,
+  onBack,
   audioEnabled
 }) {
   useEffect(() => {
@@ -18,11 +19,15 @@ export default function ReflectPhase({
       style={{
         minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         padding: 30
       }}
     >
+      <div style={{ alignSelf: 'flex-start', marginBottom: '20px' }}>
+        <button onClick={onBack} style={{ padding: '10px 20px', borderRadius: '8px', border: 'none', background: 'rgba(255,255,255,0.1)', color: 'white', cursor: 'pointer', fontSize: '16px' }}>← Back</button>
+      </div>
       <div
         style={{
           width: "100%",

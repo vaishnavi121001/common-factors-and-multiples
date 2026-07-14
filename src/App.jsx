@@ -7,20 +7,38 @@ import SimulatePhase from './components/phases/SimulatePhase';
 import PlayPhase from './components/phases/PlayPhase';
 import ReflectPhase from './components/phases/ReflectPhase';
 import useGameState from './hooks/useGameState';
-import { stopNarration } from './utils/audio';
+import { stopNarration, narrate } from './utils/audio';
+import { landingNarration } from './utils/narration';
 
 export default function App() {
   const { gameState, setPhase, completePhase, toggleAudio } = useGameState();
   const { phase, audioEnabled, phaseComplete } = gameState;
 
-  // Stop narration on unmount or phase change
   useEffect(() => {
     return () => {
       stopNarration();
     };
   }, [phase]);
 
+  useEffect(() => {
+    if (!audioEnabled) {
+      stopNarration();
+    }
+  }, [audioEnabled]);
+
+  useEffect(() => {
+    if (phase === 'intro' && audioEnabled) {
+      narrate(landingNarration());
+    }
+  }, [phase, audioEnabled]);
+
   const handleStart = () => setPhase('wonder');
+  const handleWonderBack = () => setPhase('intro');
+  const handleStoryBack = () => setPhase('wonder');
+  const handleSimulateBack = () => setPhase('story');
+  const handlePlayBack = () => setPhase('simulate');
+  const handleReflectBack = () => setPhase('play');
+
   const handleWonderNext = () => { completePhase('wonder'); setPhase('story'); };
   const handleStoryNext = () => { completePhase('story'); setPhase('simulate'); };
   const handleSimulateNext = () => { completePhase('simulate'); setPhase('play'); };
@@ -30,11 +48,11 @@ export default function App() {
   const renderPhaseContent = () => {
     switch (phase) {
       case 'intro': return <IntroPhase onStart={handleStart} audioEnabled={audioEnabled} />;
-      case 'wonder': return <WonderPhase onNext={handleWonderNext} audioEnabled={audioEnabled} />;
-      case 'story': return <StoryPhase onNext={handleStoryNext} audioEnabled={audioEnabled} />;
-      case 'simulate': return <SimulatePhase onNext={handleSimulateNext} audioEnabled={audioEnabled} />;
-      case 'play': return <PlayPhase onNext={handlePlayNext} audioEnabled={audioEnabled} />;
-      case 'reflect': return <ReflectPhase onComplete={handleReflectComplete} audioEnabled={audioEnabled} />;
+      case 'wonder': return <WonderPhase onNext={handleWonderNext} onBack={handleWonderBack} audioEnabled={audioEnabled} />;
+      case 'story': return <StoryPhase onNext={handleStoryNext} onBack={handleStoryBack} audioEnabled={audioEnabled} />;
+      case 'simulate': return <SimulatePhase onNext={handleSimulateNext} onBack={handleSimulateBack} audioEnabled={audioEnabled} />;
+      case 'play': return <PlayPhase onNext={handlePlayNext} onBack={handlePlayBack} audioEnabled={audioEnabled} />;
+      case 'reflect': return <ReflectPhase onComplete={handleReflectComplete} onBack={handleReflectBack} audioEnabled={audioEnabled} />;
       default: return <IntroPhase onStart={handleStart} audioEnabled={audioEnabled} />;
     }
   };
@@ -50,13 +68,7 @@ export default function App() {
           </div>
           <ProgressMap currentPhase={phase} phaseComplete={phaseComplete} />
           <div className="top-bar-right">
-            <button
-              className="btn btn-outline btn-sm"
-              onClick={toggleAudio}
-              title={audioEnabled ? 'Mute' : 'Unmute'}
-            >
-              {audioEnabled ? '🔊' : '🔇'}
-            </button>
+            {/* The audio button is now global floating, so we don't need it here */}
           </div>
         </header>
       )}
@@ -64,6 +76,34 @@ export default function App() {
       <main className="phase-main" key={phase}>
         {renderPhaseContent()}
       </main>
+
+      {/* Floating Audio Button in corner */}
+      <button
+        onClick={toggleAudio}
+        title={audioEnabled ? 'Mute' : 'Unmute'}
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          background: audioEnabled ? '#38bdf8' : '#94a3b8',
+          border: 'none',
+          borderRadius: '50%',
+          width: '60px',
+          height: '60px',
+          fontSize: '28px',
+          cursor: 'pointer',
+          boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transition: 'all 0.3s ease'
+        }}
+        onMouseEnter={(e) => e.target.style.transform = 'scale(1.1)'}
+        onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+      >
+        {audioEnabled ? '🔊' : '🔇'}
+      </button>
     </div>
   );
 }
